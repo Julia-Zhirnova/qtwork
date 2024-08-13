@@ -6,6 +6,7 @@ from PyQt5.QtGui import QPixmap
 
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtGui  import QImage, QPixmap
+from PyQt5.QtGui import QIcon
 
 import sqlite3
 
@@ -26,9 +27,18 @@ from pathlib import Path
 class WelcomeScreen(QDialog):
     def __init__(self):
         super(WelcomeScreen, self).__init__()
-        loadUi("welcomescreen.ui",self)        
+        #self.setWindowIcon(QtGui.QIcon('../../Загрузки/icons8-обслуживание-принтера-80.png'))
+              
+        
+        loadUi("welcomescreen.ui",self)
+                
         self.login.clicked.connect(self.gotologin)
         self.create.clicked.connect(self.gotocreate)
+    
+    def initUI(self):        
+        self.setWindowIcon(QIcon('logo.ico'))        
+    
+        self.show()
 
     def gotologin(self):
         login = LoginScreen()
@@ -165,6 +175,10 @@ widget = QtWidgets.QStackedWidget()
 widget.addWidget(welcome)
 widget.setFixedHeight(800)
 widget.setFixedWidth(1200)
+icon = QIcon()
+icon.addPixmap(QPixmap("icons8-обслуживание-принтера-80.png"), QIcon.Normal,
+                       QIcon.Off)
+widget.setWindowIcon(icon) 
 widget.show()
 try:
     sys.exit(app.exec_())
